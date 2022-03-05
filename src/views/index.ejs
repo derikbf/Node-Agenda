@@ -1,31 +1,48 @@
-<%- include('includes/head') %>
-<%- include('includes/nav') %>
+<%- include('includes/head'); %>
+<%- include('includes/nav'); %>
 
-<div class="container">
+  <div class="container">
     <div class="row">
-        <div class="col-lg-2"></div>
+      <div class="col-lg-2"></div>
 
-        <div class="col-lg-8 my-3">
-            <h1 class="text-center">Agenda</h1>
-            <p class="text-center lead">Seus contatos</p>
+      <div class="col-lg-8 my-3">
+        <h1 class="text-center">Agenda</h1>
+        <p class="text-center lead">Seus contatos estão salvos aqui!</p>
 
-            <%- include('includes/messages'); %> 
-            
-            <div class="responsive-table">
-                <table class="table my-3">
-                    <tr>
-                        <td>Luiz</td>
-                        <td>Otavio</td>
-                        <td>4515451541</td>
-                        <td>otavi@Miranda.com</td>
-                    </tr>
-                </table>
-            </div>
+        <%- include('includes/messages'); %> 
+        
+        <% if(contatos.length > 0) { %> 
+        <div class="responsive-table my-3">
+          <table class="table">
+            <thead class="thead-light">
+              <th scope="col">Nome</th>
+              <th scope="col">Sobrenome</th>
+              <th scope="col">Telefone</th>
+              <th scope="col">Email</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </thead>
+            <tbody>
+              <% contatos.forEach(contato => { %>
+                <tr>
+                  <td scope="row"><%= contato.nome %></td>
+                  <td><%= contato.sobrenome %></td>
+                  <td><%= contato.telefone %></td>
+                  <td><%= contato.email %></td>
+                  <td><a href="/contato/index/<%= contato._id %>">Editar</a></td>
+                  <td><a class="text-danger" href="/contato/delete/<%= contato._id %>">Excluir</a></td>
+                </tr>
+              <% }); %> 
+            </tbody>
+            <% } else { %> 
+              <p class="text-center lead">Não existem contatos cadastrados na sua agenda!</p>
+            <% }%> 
+          </table>
         </div>
+      </div>
 
-        <div class="col-lg-2"></div>
+      <div class="col-lg-2"></div>
     </div>
-</div>
+  </div>
 
-<%- include('includes/footer') %>
-
+<%- include('includes/footer'); %>
